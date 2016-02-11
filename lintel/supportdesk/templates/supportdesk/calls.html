@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block "title" %}Projects{% endblock %}
+
+call_sid = models.CharField(max_length=100)
+to_telephone = models.CharField(max_length=100)
+from_telephone = models.CharField(max_length=100)
+start_datetime = models.DateTimeField()
+end_datetime = models.DateTimeField(null=True)
+support_agent = models.ForeignKey(SupportAgent, null=True)
+
+
+{% block "content" %}
+  <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+    <thead>
+      <tr>
+        <th class="mdl-data-table__cell--non-numeric">From</th>
+        <th class="mdl-data-table__cell--non-numeric">To</th>
+        <th class="mdl-data-table__cell--non-numeric">Start</th>
+        <th class="mdl-data-table__cell--non-numeric">End</th>
+        <th class="mdl-data-table__cell--non-numeric">Duration</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for call in calls %}
+      <tr>
+        <td class="mdl-data-table__cell--non-numeric">{{ call.get_from_telephone_display }}</td>
+        <td class="mdl-data-table__cell--non-numeric">
+          {{ call.get_project_display }}
+          <br/>
+          ({{ call.get_to_telephone_display }})
+        </td>
+        <td class="mdl-data-table__cell--non-numeric">{{ call.start_datetime }}</td>
+        <td class="mdl-data-table__cell--non-numeric">{{ call.end_datetime }}</td>
+        <td class="mdl-data-table__cell--non-numeric">{{ call.get_duration_display }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

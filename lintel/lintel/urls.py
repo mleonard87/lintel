@@ -19,5 +19,6 @@ from django.contrib import admin
 
 urlpatterns = patterns('',
     url(r'^', include('supportdesk.urls')),
+    url(r'^twilio/', include('twilioapi.urls')),
     url(r'^admin/', include(admin.site.urls)),
 )

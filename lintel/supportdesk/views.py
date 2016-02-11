@@ -4,7 +4,7 @@ from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 
-from supportdesk.models import Project, SupportAgent
+from supportdesk.models import Project, SupportAgent, CallLog
 from supportdesk.forms import ProjectModelForm, SupportAgentForm, ShiftModelForm
 
 def dashboard(request):
@@ -141,5 +141,19 @@ def support_agents_manage(request, support_agent_id):
         context_instance=RequestContext(
             request,
             {'support_agent': support_agent}
+            )
+        )
+
+
+
+
+def calls(request):
+    calls = CallLog.objects.all().order_by('-start_datetime', '-end_datetime')
+
+    return render_to_response(
+        'supportdesk/calls.html',
+        context_instance=RequestContext(
+            request,
+            {'calls': calls}
             )
         )
