@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block "title" %}New Person{% endblock %}
+
+{% block "content" %}
+
+{{ support_agent_form.errors }}
+<form action="{% url 'support_agents_new' %}" method="POST">
+  {% csrf_token %}
+  <div class="demo-card-wide mdl-card mdl-shadow--2dp">
+    <div class="mdl-card__supporting-text">
+        {% for field in support_agent_form %}
+          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <input class="mdl-textfield__input" type="text" name="{{ field.name }}" id="sample3">
+            {{ field.widget }}
+            <label class="mdl-textfield__label" for="sample3">{{ field.label }}</label>
+          </div>
+          <br/>
+        {% endfor %}
+      </form>
+    </div>
+    <div class="mdl-card__actions mdl-card--border">
+      <input type='submit' class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" value="Create Person" />
+    </div>
+  </div>
+</form>
+
+
+
+
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block "title" %}{{project.title}}{% endblock %}
+
+{% block "content" %}
+  <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+    <thead>
+      <tr>
+        <th class="mdl-data-table__cell--non-numeric">Name</th>
+        <th class="mdl-data-table__cell--non-numeric">Day</th>
+        <th class="mdl-data-table__cell--non-numeric">Time</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for shift in project.get_shifts %}
+      <tr>
+        <td class="mdl-data-table__cell--non-numeric">{{ shift.user.get_full_name }}</td>
+        <td class="mdl-data-table__cell--non-numeric">{{ shift.get_day_display }}</td>
+        <td class="mdl-data-table__cell--non-numeric">
+          {{ shift.start }} - {{ shift.end }}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  {{ shift_form.errors }}
+  <form action="{% url 'projects_manage' project.id %}" method="POST">
+    {% csrf_token %}
+    <div class="demo-card-wide mdl-card mdl-shadow--2dp">
+      <div class="mdl-card__supporting-text">
+          {% for field in shift_form %}
+            {{ field }}
+            {% comment %}
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+              <input class="mdl-textfield__input" type="text" name="{{ field.name }}" id="sample3">
+              {{ field.widget }}
+              {{ field.choices }}
+              <label class="mdl-textfield__label" for="sample3">{{ field.label }}</label>
+            </div>
+            {% endcomment %}
+            <br/>
+          {% endfor %}
+        </form>
+      </div>
+      <div class="mdl-card__actions mdl-card--border">
+        <input type='submit' class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" value="Add Shift" />
+      </div>
+    </div>
+  </form>
+
+{% endblock %}

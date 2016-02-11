@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block "title" %}Projects{% endblock %}
+
+{% block "content" %}
+  <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+    <thead>
+      <tr>
+        <th class="mdl-data-table__cell--non-numeric">Project Name</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for project in projects %}
+      <tr>
+        <td class="mdl-data-table__cell--non-numeric">{{project.title}}</td>
+        <td>
+          <a href="{% url 'projects_manage' project.id %}">Manage</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <a href="{% url 'projects_new' %}" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
+    <i class="material-icons">add</i>
+  </a>
+{% endblock %}

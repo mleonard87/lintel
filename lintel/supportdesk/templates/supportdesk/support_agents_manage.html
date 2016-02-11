@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block "title" %}{{ support_agent.user.get_full_name }}{% endblock %}
+
+{% block "content" %}
+  <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+    <thead>
+      <tr>
+        <th class="mdl-data-table__cell--non-numeric">Project</th>
+        <th class="mdl-data-table__cell--non-numeric">Name</th>
+        <th class="mdl-data-table__cell--non-numeric">Day</th>
+        <th class="mdl-data-table__cell--non-numeric">Time</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for shift in support_agent.get_shifts %}
+      <tr>
+        <td class="mdl-data-table__cell--non-numeric">{{ shift.project.title }}</td>
+        <td class="mdl-data-table__cell--non-numeric">{{ shift.user.get_full_name }}</td>
+        <td class="mdl-data-table__cell--non-numeric">{{ shift.get_day_display }}</td>
+        <td class="mdl-data-table__cell--non-numeric">
+          {{ shift.start }} - {{ shift.end }}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

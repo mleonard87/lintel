@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block "title" %}People{% endblock %}
+
+{% block "content" %}
+  <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+    <thead>
+      <tr>
+        <th class="mdl-data-table__cell--non-numeric">Name</th>
+        <th class="mdl-data-table__cell--non-numeric">Telephone</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for support_agent in support_agents %}
+      <tr>
+        <td class="mdl-data-table__cell--non-numeric">{{ support_agent.user.get_full_name }}</td>
+        <td class="mdl-data-table__cell--non-numeric">{{ support_agent.telephone }}</td>
+        <td>
+          <a href="{% url 'support_agents_manage' support_agent.id %}">Manage</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <a href="{% url 'support_agents_new' %}" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
+    <i class="material-icons">add</i>
+  </a>
+{% endblock %}
